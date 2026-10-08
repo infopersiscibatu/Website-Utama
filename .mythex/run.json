@@ -1,0 +1,30 @@
+{
+  "services": [
+    {
+      "name": "web",
+      "command": "npm run dev",
+      "port": 5173,
+      "web": true,
+      "setup": "npm install --no-audit --no-fund",
+      "deploy": {
+        "build": "npm run build",
+        "static": "dist",
+        "runtime": "static"
+      }
+    },
+    {
+      "name": "push",
+      "command": "npm --prefix server start",
+      "port": 41001,
+      "setup": "npm --prefix server install --no-audit --no-fund",
+      "deploy": {
+        "dockerfile": "server/Dockerfile",
+        "context": "server",
+        "cpus": 1,
+        "memoryMb": 512
+      }
+    }
+  ],
+  "database": true,
+  "storage": true
+}
